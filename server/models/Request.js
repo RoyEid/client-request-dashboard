@@ -14,7 +14,7 @@ const requestSchema = new mongoose.Schema(
         },
         status: {
             type: String,
-            enum: ["New", "In progress", "Done"],
+            enum: ["New", "In Progress", "Done"],
             default: "New",
         }
     },

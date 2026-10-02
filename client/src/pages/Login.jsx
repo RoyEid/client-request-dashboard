@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [passwordReadOnly, setPasswordReadOnly] = useState(true);
   const [error, setError] = useState("");
 
   const navigate = useNavigate();
@@ -53,11 +54,12 @@ const Login = () => {
 
         {error && <div className="error-alert">{error}</div>}
 
-        <form onSubmit={handleSubmit} className="login-form">
+        <form onSubmit={handleSubmit} className="login-form" autoComplete="off">
           <div className="form-group">
             <label htmlFor="login-email">Email</label>
             <input
               id="login-email"
+              name="demo-login-email"
               type="email"
               value={email}
               onChange={(e) => {
@@ -65,6 +67,7 @@ const Login = () => {
                 if (error) setError("");
               }}
               placeholder="demo@example.com"
+              autoComplete="off"
               required
             />
           </div>
@@ -73,13 +76,21 @@ const Login = () => {
             <label htmlFor="login-password">Password</label>
             <input
               id="login-password"
+              name="demo-login-password"
               type="password"
               value={password}
               onChange={(e) => {
                 setPassword(e.target.value);
                 if (error) setError("");
               }}
-              placeholder="••••••••"
+              placeholder="Enter your password"
+              autoComplete="new-password"
+              readOnly={passwordReadOnly}
+              onFocus={() => setPasswordReadOnly(false)}
+              onClick={() => setPasswordReadOnly(false)}
+              onBlur={() => {
+                if (!password) setPasswordReadOnly(true);
+              }}
               required
             />
           </div>
